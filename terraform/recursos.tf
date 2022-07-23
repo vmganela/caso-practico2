@@ -1,12 +1,16 @@
-# Create a resource group
+
+################### 
+#  Resource group #
+################### 
+
 resource "azurerm_resource_group" "rg" {
   name     = "casoPractico2"
   location = var.location
 }
 
-#### 
-# Network
-#### 
+############# 
+#  Networks #
+#############
 
 # Create a virtual network
 # General network
@@ -113,7 +117,7 @@ resource "azurerm_network_interface" "nfsnic" {
   }
 }
 
-# IP publica
+# Ips publicas para cada maquina
 resource "azurerm_public_ip" "masterPublicIp" {
   name                = "masterPublicIp1"
   resource_group_name = azurerm_resource_group.rg.name
@@ -150,9 +154,12 @@ resource "azurerm_public_ip" "nfsPublicIp" {
   }
 }
 
-#### 
-# Virtual Machines
-#### 
+#################### 
+# Virtual Machines #
+####################
+
+#KubernetesMaster
+
 
 resource "azurerm_linux_virtual_machine" "kubernetesMaster" {
   name                            = "kubeMaster"
