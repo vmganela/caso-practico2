@@ -103,6 +103,11 @@ resource "azurerm_network_interface" "nodenic" {
   }
 }
 
+resource "azurerm_network_interface_application_security_group_association" "aniasga" {
+  network_interface_id          = azurerm_network_interface.nodenic.id
+  application_security_group_id = azurerm_application_security_group.caso2asg.id
+}
+
 resource "azurerm_network_interface" "nfsnic" {
   name                = "nfsNic"
   location            = azurerm_resource_group.rg.location
@@ -117,7 +122,12 @@ resource "azurerm_network_interface" "nfsnic" {
   }
 }
 
-# Ips publicas para cada maquina
+resource "azurerm_network_interface_application_security_group_association" "aniasga" {
+  network_interface_id          = azurerm_network_interface.nfsnic.id
+  application_security_group_id = azurerm_application_security_group.caso2asg.id
+}
+
+# Ips públicas para cada maquina
 resource "azurerm_public_ip" "masterPublicIp" {
   name                = "masterPublicIp1"
   resource_group_name = azurerm_resource_group.rg.name
